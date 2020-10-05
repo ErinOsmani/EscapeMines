@@ -9,8 +9,6 @@ namespace EscapeMines
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             //reading from file
             /**
              * File Format:
@@ -25,13 +23,14 @@ namespace EscapeMines
              *    
              */ 
             string[] inputs = FileReader.GetLinesFromFile(@"Example\input.txt");
+            //validation
             using (InputValidator validator = new InputValidator())
             {
                 validator.IsBoardSizeValid(inputs[0]);
                 validator.IsListofMinesValid(inputs[1]);
+                validator.IsExitPointValid(inputs[2]);
+                validator.IsStartPositionValid(inputs[3]);
             }
-
-
 
             // setup field 
 
