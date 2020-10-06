@@ -35,26 +35,6 @@ namespace EscapeMines
 
             return IsValid;
         }
-
-
-        private bool IsCoordinatesValid(string input, char sep)
-        {
-            bool IsValid = true;
-            string[] coos = input.Trim().Split(sep);
-            if (coos.Length != 2)
-            {
-                Console.WriteLine($"Validation: The coordinates should be a pair of 2 -> {input.Trim()}" );
-                IsValid = false;
-            }
-            if (!int.TryParse(coos[0], out int x) || !int.TryParse(coos[1], out int y))
-            {
-                Console.WriteLine("Validation: Input not valid number");
-                IsValid = false;
-            }
-
-            return IsValid;
-        }
-
         public bool IsListofMinesValid(string input)
         {
             string[] coordinates = input.Trim().Split(' ');
@@ -67,7 +47,6 @@ namespace EscapeMines
 
             return IsValid;
         }
-
         public bool IsExitPointValid(string input)
         {
             string coordinates = input.Trim();
@@ -77,7 +56,6 @@ namespace EscapeMines
 
             return IsValid;
         }
-
         public bool IsStartPositionValid(string input)
         {
             string[] s = input.Trim().Split(' ');
@@ -96,6 +74,18 @@ namespace EscapeMines
 
             return IsValid;
         }
+        public bool IsListofMovesValid(string input)
+        {
+            string[] moves = input.Trim().Split(' ').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            foreach (string m in moves)
+            {
+                if (!IsValidMove(m))
+                    IsValid = false;
+            }
+
+            return IsValid;
+        }
+
 
 
         private bool IsValidOrientation(string o)
@@ -115,7 +105,38 @@ namespace EscapeMines
 
             return IsValid;
         }
+        private bool IsValidMove(string m)
+        {
+            bool IsValid = true;
+            char[] validMoves = { 'R', 'L', 'M' };
 
+            if (!char.TryParse(m, out char c))
+                IsValid = false;
 
+            if (!validMoves.Where(x => x.Equals(c)).Any())
+            {
+                Console.WriteLine($"Validation: Move not valid -> {m.Trim()}");
+                IsValid = false;
+            }
+
+            return IsValid;
+        }
+        private bool IsCoordinatesValid(string input, char sep)
+        {
+            bool IsValid = true;
+            string[] coos = input.Trim().Split(sep);
+            if (coos.Length != 2)
+            {
+                Console.WriteLine($"Validation: The coordinates should be a pair of 2 -> {input.Trim()}");
+                IsValid = false;
+            }
+            if (!int.TryParse(coos[0], out int x) || !int.TryParse(coos[1], out int y))
+            {
+                Console.WriteLine("Validation: Input not valid number");
+                IsValid = false;
+            }
+
+            return IsValid;
+        }
     }
 }

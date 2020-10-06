@@ -10,4 +10,11 @@ namespace EscapeMines
         Mine = 2,
         Exit = 3
     }
+    internal enum OrientiationType
+    {
+        North = 'N',
+        South = 'S',
+        West = 'W',
+        East = 'E'
+    }
 }

@@ -23,6 +23,8 @@ namespace EscapeMines
              *    
              */ 
             string[] inputs = FileReader.GetLinesFromFile(@"Example\input.txt");
+            string[] moves = inputs.Skip(4).ToArray();
+
             //validation
             using (InputValidator validator = new InputValidator())
             {
@@ -30,9 +32,19 @@ namespace EscapeMines
                 validator.IsListofMinesValid(inputs[1]);
                 validator.IsExitPointValid(inputs[2]);
                 validator.IsStartPositionValid(inputs[3]);
-            }
 
+                validator.IsListofMovesValid(string.Join(' ', moves));
+
+                if (!validator.IsValid)
+                    return;
+            }
             // setup field 
+            Console.WriteLine("hmmmm");
+            string[] dims = inputs[0].Trim().Split(' ');
+
+
+
+
 
 
             // moving 
